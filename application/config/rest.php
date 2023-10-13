@@ -210,7 +210,7 @@ $config['auth_library_function'] = '';
 | Array of usernames and passwords for login, if ldap is configured this is ignored
 |
 */
-$config['rest_valid_logins'] = ['admin' => '1234'];
+$config['rest_valid_logins'] = ['admin' => '123'];
 
 /*
 |--------------------------------------------------------------------------
@@ -298,7 +298,7 @@ $config['rest_database_group'] = 'default';
 | The table name in your database that stores API keys
 |
 */
-$config['rest_keys_table'] = 'keys';
+$config['rest_keys_table'] = 'auth_tokens';
 
 /*
 |--------------------------------------------------------------------------
@@ -323,7 +323,7 @@ $config['rest_keys_table'] = 'keys';
 |   ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 |
 */
-$config['rest_enable_keys'] = false;
+$config['rest_enable_keys'] = true;
 
 /*
 |--------------------------------------------------------------------------
@@ -334,7 +334,7 @@ $config['rest_enable_keys'] = false;
 | column name to match e.g. my_key
 |
 */
-$config['rest_key_column'] = 'key';
+$config['rest_key_column'] = 'token';
 
 /*
 |--------------------------------------------------------------------------

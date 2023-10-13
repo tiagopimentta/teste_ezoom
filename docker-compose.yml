@@ -1,0 +1,22 @@
+version: '3'
+services:
+    web:
+        image: php:8.0-apache
+        container_name: codeigniter3-app
+        volumes:
+            - ./:/var/www/html
+        ports:
+            - "8080:80"
+        environment:
+            - APACHE_DOCUMENT_ROOT=/var/www/html
+
+    db:
+        image: mysql
+        container_name: codeigniter3-db
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: ezoom
+        ports:
+            - "33064:3306"
+        volumes:
+            - ./system/database/mysql-data:/var/lib/mysql
