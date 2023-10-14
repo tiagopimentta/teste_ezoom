@@ -52,3 +52,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'welcome';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
+
+$route['teste_ezoom/api/tasks']              = 'api/taskController/allTasks';
+$route['teste_ezoom/api/task/(:num)']        = 'api/taskController/getTask/$1';
+$route['teste_ezoom/api/task/create']        = 'api/taskController/createTask/$i';
+$route['teste_ezoom/api/task/update/(:num)'] = 'api/taskController/updateTask/$1';
+$route['teste_ezoom/api/task/delete/(:num)'] = 'api/taskController/deleteTask/$1';

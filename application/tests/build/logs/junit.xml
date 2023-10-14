@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="TaskController_test" file="C:\wamp64\www\teste_ezoom\application\tests\controllers\TaskController_test.php" tests="5" assertions="35" errors="0" warnings="0" failures="0" skipped="0" time="0.313188">
+    <testcase name="testCreateTask" class="TaskController_test" classname="TaskController_test" file="C:\wamp64\www\teste_ezoom\application\tests\controllers\TaskController_test.php" line="11" assertions="3" time="0.075603"/>
+    <testcase name="testGetAllTasks" class="TaskController_test" classname="TaskController_test" file="C:\wamp64\www\teste_ezoom\application\tests\controllers\TaskController_test.php" line="38" assertions="10" time="0.057166"/>
+    <testcase name="testGetTask" class="TaskController_test" classname="TaskController_test" file="C:\wamp64\www\teste_ezoom\application\tests\controllers\TaskController_test.php" line="73" assertions="8" time="0.060491"/>
+    <testcase name="testUpdateTask" class="TaskController_test" classname="TaskController_test" file="C:\wamp64\www\teste_ezoom\application\tests\controllers\TaskController_test.php" line="106" assertions="8" time="0.060876"/>
+    <testcase name="testDeleteTask" class="TaskController_test" classname="TaskController_test" file="C:\wamp64\www\teste_ezoom\application\tests\controllers\TaskController_test.php" line="143" assertions="6" time="0.059052"/>
+  </testsuite>
+</testsuites>

@@ -14,7 +14,7 @@ class TaskController extends RestController
 	{
 		parent::__construct();
 		$this->load->library('pagination');
-		$this->load->helper(['url','pagination_helper' ]);
+		$this->load->helper(['url','pagination_helper']);
 		$this->load->model('task_model');
 	}
 
@@ -25,11 +25,11 @@ class TaskController extends RestController
 			$pagination = PaginationHelper::paginate($this, $this->task_model);
 			$response = $this->task_model->getTasks($pagination['page'], $pagination['itemsPerPage']);
 
-			if ($response) {
+			if (!empty($response)) {
 				$this->response([
 					'status' => true,
 					'message' => $response,
-					'pagination' => $pagination['pagination'],
+					'pagination' => $pagination,
 				], RestController::HTTP_OK);
 			} else {
 				$this->response([
@@ -41,33 +41,35 @@ class TaskController extends RestController
 			$this->response(['error' => $e->getMessage()], 403);
 		}
 	}
-
 	public function createTask_post()
 	{
-		try {
 
-			$request = [
-				'title'        => $this->input->post('title'),
-				'description'  => $this->input->post('description')
-			];
+		$request = json_decode(file_get_contents('php://input'), true);
+
+		try {
 
 			$this->validateFields($request);
 
+			$request = [
+				'title' => $request['title'],
+				'description' => $request['description']
+			];
+
 			$response = $this->task_model->createTask($request);
 
-			if($response){
+			if ($response) {
 				$this->response([
-					'status'    => true,
+
+					'status' => true,
 					'message' => 'new task created.',
-					'data'    => $response,
+					'data' => $response,
 				], RestController::HTTP_OK);
-			}else{
+			} else {
 				$this->response([
-					'status'  => false,
-					'message' => 'failed to craete task',
+					'status' => false,
+					'message' => 'failed to create task',
 				], RestController::HTTP_BAD_REQUEST);
 			}
-
 		} catch (\Exception $e) {
 			$this->response(['error' => $e->getMessage()], 403);
 		}
@@ -77,16 +79,16 @@ class TaskController extends RestController
 	{
 		try {
 			$response = $this->task_model->getTask($id);
-			if($response){
+			if ($response) {
 				$this->response([
-					'status'  => true,
-					'status'  => 200,
-					'message' => $response,
+					'status' => true,
+					'data' => $response,
 				], RestController::HTTP_OK);
-			}else{
+			} else {
 				$this->response([
-					'status'  => "error",
+					'status' => false,
 					'message' => 'task not found or does not exist',
+					
 				], RestController::HTTP_BAD_REQUEST);
 			}
 		} catch (\Exception $e) {
@@ -96,88 +98,76 @@ class TaskController extends RestController
 
 	public function updateTask_put($id)
 	{
+		if (empty($id) || !is_numeric($id) || $id <= 0) {
+			$this->response(['error' => 'Invalid ID'], 400);
+			return;
+		}
+
 		try {
 			$request = $this->put();
-
 			$this->validateFields($request);
 
-			$status = 'pendente';
-			if(!empty($request['status'])){
-				switch ($request['status']){
-					case 'pendente':
-						$status = 'pendente';
-						break;
-					case 'concluída':
-						$status = 'concluída';
-						break;
-					case 'cancelada':
-						$status = 'cancelada';
-						break;
-					default:
-						$status = 'pendente';
-						break;
-				}
-			}
+			$status = in_array($request['status'], ['pendente', 'concluída', 'cancelada']) ? $request['status'] : 'pendente';
 
 			$request = [
-				'title'       => $this->put('title'),
+				'title' => $this->put('title'),
 				'description' => $this->put('description'),
-				'status'      => $status
+				'status' => $status
 			];
 
+			$response = $this->task_model->updateTask($id, $request);
 
-			$getdata = $this->task_model->getTask($id);
-
-			$response = null;
-			if(!empty($getdata)){
-				$response = $this->task_model->updateTask($id, $request);
-			}
-
-			if($response){
+			if (!$response) {
 				$this->response([
-					'status'  => true,
-					'message' => 'task updated',
-					'data'    => $response,
-				], RestController::HTTP_OK);
-			}else{
-				$this->response([
-					'status'  => "error",
+					'status' => false,
 					'message' => 'task not found or does not exist',
 				], RestController::HTTP_BAD_REQUEST);
 			}
+
+			if (!is_numeric($response->id) || $response->id <= 0) {
+				$this->response(['error' => 'Invalid ID in the response'], 400);
+				return;
+			}
+
+			$this->response([
+				'status' => true,
+				'data' => $response,
+			], RestController::HTTP_OK);
 		} catch (\Exception $e) {
 			$this->response(['error' => $e->getMessage()], 403);
 		}
 	}
-
 
 	public function deleteTask_delete($id)
 	{
-		try {
+		if(!empty($id) && is_numeric($id)) {
+			try {
 
-			$getdata = $this->task_model->getTask($id);
+				$getdata = $this->task_model->getTask($id);
 
-			$response = null;
-			if(!empty($getdata)){
-				$response = $this->task_model->deleteTask($id);
+				$response = null;
+				if (!empty($getdata)) {
+					$response = $this->task_model->deleteTask($id);
+				}
+
+				if ($response) {
+					$this->response([
+						'status' => true,
+						'message' => 'Task deleted successfully',
+						'data' => $getdata
+					], RestController::HTTP_OK);
+				} else {
+					$this->response([
+						'status' => false,
+						'message' => 'Task not found or does not exist',
+					], RestController::HTTP_BAD_REQUEST);
+				}
+
+			} catch (\Exception $e) {
+				$this->response(['error' => $e->getMessage()], 403);
 			}
-
-			if($response){
-				$this->response([
-					'status'  => "success",
-					'message' => 'task deleted',
-					'data'    => $getdata
-				], RestController::HTTP_OK);
-			}else{
-				$this->response([
-					'status'  => "error",
-					'message' => 'task not found or does not exist',
-				], RestController::HTTP_BAD_REQUEST);
-			}
-
-		} catch (\Exception $e) {
-			$this->response(['error' => $e->getMessage()], 403);
 		}
 	}
+
 }
 
