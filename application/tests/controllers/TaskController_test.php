@@ -2,7 +2,7 @@
 
 use GuzzleHttp\Client;
 
-const url = "http://localhost:9000/";
+const url = "http://localhost:7000/";
 const task_id = "1";
 
 class TaskController_test extends TestCase
@@ -17,7 +17,7 @@ class TaskController_test extends TestCase
 
 		try {
 			$client = new Client();
-			$response = $client->post(url. 'teste_ezoom/api/task/create', [
+			$response = $client->post(url. '/api/task/create', [
 				'headers'          => [
 					'Content-Type' => 'application/json',
 					'X-API-KEY'    => '7440bba936e6a7272ade8bfa8a148ead97a32f89'
@@ -39,7 +39,7 @@ class TaskController_test extends TestCase
 	{
 		try {
 			$client = new Client();
-			$response = $client->get(url."teste_ezoom/api/tasks", [
+			$response = $client->get(url."/api/tasks", [
 				'headers' => [
 					'Content-Type' => 'application/json',
 					'X-API-KEY'    => '7440bba936e6a7272ade8bfa8a148ead97a32f89'
@@ -76,7 +76,7 @@ class TaskController_test extends TestCase
 		try {
 
 			$client = new Client();
-			$response = $client->get(url ."teste_ezoom/api/task/".task_id, [
+			$response = $client->get(url ."/api/task/".task_id, [
 				'headers' => [
 					'Content-Type' => 'application/json',
 					'X-API-KEY'    => '7440bba936e6a7272ade8bfa8a148ead97a32f89'
@@ -113,7 +113,7 @@ class TaskController_test extends TestCase
 
 		try {
 			$client = new Client();
-			$response = $client->put(url . "teste_ezoom/api/task/update/".task_id, [
+			$response = $client->put(url . "/api/task/update/".task_id, [
 				'headers' => [
 					'Content-Type' => 'application/json',
 					'X-API-KEY'    => '7440bba936e6a7272ade8bfa8a148ead97a32f89'
@@ -144,7 +144,7 @@ class TaskController_test extends TestCase
 	{
 		try {
 			$client = new Client();
-			$response = $client->delete(url ."teste_ezoom/api/task/delete/".task_id, [
+			$response = $client->delete(url ."/api/task/delete/".task_id, [
 				'headers' => [
 					'Content-Type' => 'application/json',
 					'X-API-KEY'    => '7440bba936e6a7272ade8bfa8a148ead97a32f89'

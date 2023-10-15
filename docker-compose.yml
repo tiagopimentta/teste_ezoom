@@ -1,18 +1,20 @@
-version: '3'
+version: "3.9"
 services:
-    web:
-        image: php:7.4-apache
-        container_name: codeigniter3-app
-        volumes:
-            - ./:/var/www/html
+    php:
+        build:
+            context: .
+        container_name: ci3-app
+        extra_hosts:
+            - "host.docker.internal:host-gateway"
         ports:
-            - "8080:80"
-        environment:
-            - APACHE_DOCUMENT_ROOT=/var/www/html
-
+            - 7000:7000
+        volumes:
+            - ./:/ci3
+        working_dir: /ci3
+        entrypoint: "php -S 0.0.0.0:7000"
     db:
         image: mysql
-        container_name: codeigniter3-db
+        container_name: ci3-db
         environment:
             MYSQL_ROOT_PASSWORD: root
             MYSQL_DATABASE: ezoom

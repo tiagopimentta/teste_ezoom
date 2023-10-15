@@ -75,9 +75,9 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'localhost',
+	'hostname' => 'ci3-db',
 	'username' => 'root',
-	'password' => '',
+	'password' => 'root',
 	'database' => 'ezoom',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
