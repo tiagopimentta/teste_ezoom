@@ -30,19 +30,29 @@ Entre no container
 
 ### Testes unitários.
 
+Ainda dentro do container app, rode os teste através do comando abaixo. 
 
-Ainda dentro do container app, rode os teste através do comando:
+#### Obs: É importante rodar os testes antes de usar api. 
 
 `vendor/bin/phpunit -c application/tests`
 
 
 Acesso a api online com documentação
 
-https://documenter.getpostman.com/view/3052887/2s9YR6atpf)
+https://documenter.getpostman.com/view/3052887/2s9YR6atpf
 
 ---
 ### Opcionais
 Acessar container do mysql
 
-`docker exec -it ci3-db /bin/bash`
+`docker exec -it ci3-db /bin/bash` 
 
+Para acessar o banco utilize das seguintes configurações:
+
+```
+usuário: root
+password: root
+database: ezoom
+serverhost: 82.180.136.89
+porta: 33064
+```
