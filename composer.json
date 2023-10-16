@@ -12,7 +12,8 @@
 	},
 	"require": {
 		"php": ">=7.4.26",
-		"guzzlehttp/guzzle": "^7.8"
+		"guzzlehttp/guzzle": "^7.8",
+		"zircote/swagger-php": "^4.7"
 	},
 	"suggest": {
 		"paragonie/random_compat": "Provides better randomness in PHP 5.x"

@@ -20,6 +20,8 @@ Acesse essa url para que seja geradas a migrações.
 
 `http://localhost:7000/migrate`
 
+Obs: caso as migrations não sejam criadas, rode esse comando na raiz do projeto `sudo chmod -R 775 .`
+
 Contêineres e migrations criadas, agora precisa acessar o container do sistema para rodar os testes unitários. 
 
 Entre no container
@@ -27,11 +29,8 @@ Entre no container
 `docker exec -it ci3-app /bin/bash`
 
 ### Testes unitários.
-após estar dentro do container, instale o composer 
 
-`apt-get composer`
-
-instale a lib do teste unitário.
+Instale a lib do teste unitário.
 
 `composer require --dev phpunit/phpunit ^9`
 
