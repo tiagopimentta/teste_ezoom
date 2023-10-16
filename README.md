@@ -30,18 +30,15 @@ Entre no container
 
 ### Testes unitários.
 
-Instale a lib do teste unitário.
 
-`composer require --dev phpunit/phpunit ^9`
-
-Rode os teste através do comando:
+Ainda dentro do container app, rode os teste através do comando:
 
 `vendor/bin/phpunit -c application/tests`
 
 
 Acesso a api online com documentação
 
-(adicioanr)
+https://documenter.getpostman.com/view/3052887/2s9YR6atpf)
 
 ---
 ### Opcionais
